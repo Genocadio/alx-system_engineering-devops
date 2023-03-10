@@ -1,0 +1,2 @@
+#!/bin/bash
+chown $(id -un vincent):$(id -gn staff) _hello
