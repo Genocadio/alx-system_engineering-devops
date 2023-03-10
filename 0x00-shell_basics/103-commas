@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -1 --group-directories-first | awk '{ printf "%s%s", $0, (NR%2==0 ? "\n" : ",") }'
+ls -1Ap | sort -d | sed -e 's/[^0-9a-zA-Z\/\.-]/\\&/g' | sed -e 's/\.\.\///g' | tr '\n' ',' | sed -e 's/,$/\n/g'
