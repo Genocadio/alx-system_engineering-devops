@@ -1,2 +1,2 @@
 #!/bin/bash
-awk '{words[$1]++} END {for (w in words) if (words[w]==1) print w}' | sort
+sort | uniq -u
