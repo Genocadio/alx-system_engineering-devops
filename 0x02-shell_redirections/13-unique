@@ -1,2 +1,2 @@
 #!/bin/bash
-tr '[:upper:]' '[:lower:]' | tr -s ' ' '\n' | sort | uniq -u
+awk '{words[$1]++} END {for (w in words) if (words[w]==1) print w}' | sort
