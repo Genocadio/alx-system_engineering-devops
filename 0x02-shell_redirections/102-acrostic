@@ -1,2 +1,2 @@
 #!/bin/bash
-tr -d '\n' < "$1" | sed 's/\(^\|\s\)\([[:alpha:]]\)/\2/g'
+cut -c 1 <file> | tr -d '\n'; echo

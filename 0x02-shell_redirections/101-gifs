@@ -1,2 +1,2 @@
 #!/bin/bash
-shopt -s globstar;for f in **/*.gif;do echo "${f%.*}"|tr [:upper:] [:lower:];done|sort -f;echo
+find . -type f -name "*.gif" | sed 's/\.gif$//' | LC_ALL=C sort -f; echo
