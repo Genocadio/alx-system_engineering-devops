@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "Hello $(whoami)!"; alias greet='. ~/hello.sh'
+echo "Hello $(whoami)"
