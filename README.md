@@ -1,1 +1,1 @@
-this is my shell basics task
+this is my shell basics project
