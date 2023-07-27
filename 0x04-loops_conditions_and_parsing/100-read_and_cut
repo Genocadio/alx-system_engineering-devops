@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#prints content of /etc/passwd with some conditions
+while IFS=: read -r username _ userid _ _ home _; do
+    echo "$username:$userid:$home"
+done < /etc/passwd
