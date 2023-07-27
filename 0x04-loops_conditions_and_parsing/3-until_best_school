@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#print "Best School" with until
 counter=0
 until [ $counter -eq 10 ]
 do
