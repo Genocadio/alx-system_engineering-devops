@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# pings an IP address given as an argument 5 times
+IP="${1}"
+fn=$(basename "${BASH_SOURCE[@]}")
+if ! [ "$IP" ]; then
+	echo "Usage: ${fn} {IP_ADDRESS}"
+else
+	ping -c 5 "${IP}"
+fi
