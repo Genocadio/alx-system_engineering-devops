@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#config nginx to have custom 404 page
+sudo apt-get update
+sudo apt-get -y install nginx
+sudo service nginx start
+
+echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
+
+sudo sed -i '/#error_page 404 \/404.html;/c\error_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}' /etc/nginx/sites-available/default
+
+sudo sed -i '30i \ \tlocation /redirect_me {\n\t\treturn 301 https://google.com;\n\t}' /etc/nginx/sites-available/default
+
+
+sudo service nginx restart
