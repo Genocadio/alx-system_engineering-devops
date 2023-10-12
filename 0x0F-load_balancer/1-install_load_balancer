@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#setup Ha proxy load balanceer
+apt update
