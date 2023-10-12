@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#configures new web server with nginx configs
+# Configures a new web server with Nginx settings
 
 config_data='
 server {
@@ -13,13 +13,12 @@ server {
     index index.html index.htm index.nginx-debian.html;
 
     server_name _;
-    add_header X-Served-By $hostname;
+    add_header X-Served-By $(hostname);
 
     location / {
         try_files $uri $uri/ =404;
     }
-}
-'
+}'
 apt update -y
 apt install nginx -y
 ufw allow 'Nginx HTTP'
