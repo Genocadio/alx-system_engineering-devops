@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Configures a new web server with Nginx settings
 
-config_data='
+config_data="
 server {
     listen 80 default_server;
     rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
@@ -18,7 +18,7 @@ server {
     location / {
         try_files $uri $uri/ =404;
     }
-}'
+}"
 apt update -y
 apt install nginx -y
 ufw allow 'Nginx HTTP'
