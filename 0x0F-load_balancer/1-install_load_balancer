@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-#setup Ha proxy load balanceer
+#installs an configures haproxy
 sudo apt update -y
 sudo apt install -y haproxy
-
 sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.bak
-
 cat <<EOL | sudo tee /etc/haproxy/haproxy.cfg
 global
     log /dev/log    local0
@@ -35,6 +33,6 @@ backend my-backend
     server 318867-web-01 100.26.210.219:80 check
     server 318867-web-02 52.207.139.38:80 check
 EOL
-
 sudo systemctl restart haproxy
 sudo systemctl enable haproxy
+
