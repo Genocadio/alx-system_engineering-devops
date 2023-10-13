@@ -1,38 +1,32 @@
 #!/usr/bin/env bash
 #installs an configures haproxy
 sudo apt update -y
-sudo apt install -y haproxy
-sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.bak
-cat <<EOL | sudo tee /etc/haproxy/haproxy.cfg
-global
-    log /dev/log    local0
-    log /dev/log    local1 notice
-    chroot /var/lib/haproxy
-    stats socket /run/haproxy/admin.sock mode 660 level admin
-    stats timeout 30s
-    user haproxy
-    group haproxy
-    daemon
+sudo apt-get -y install haproxy
 
-defaults
-    log global
-    mode http
-    option httplog
-    option dontlognull
-    timeout connect 5000
-    timeout client 50000
-    timeout server 50000
-
-frontend balancer
+# Define the HAProxy configuration
+server_config=\
+"
+frontend my_frontend
     bind *:80
     mode http
-    default_backend my-backend
+    default_backend my_backend
+    timeout client 30s
+    timeout connect 5s
+    timeout server 30s
 
-backend my-backend
+backend my_backend
     balance roundrobin
-    server 318867-web-01 100.26.210.219:80 check
+    mode http
+	server 318867-web-01 100.26.210.219:80 check
     server 318867-web-02 52.207.139.38:80 check
-EOL
-sudo systemctl restart haproxy
-sudo systemctl enable haproxy
+    timeout client 30s 
+    timeout connect 5s
+    timeout server 30s
+"
+# Overwrite the HAProxy configuration file instead of appending
+echo "$server_config" | sudo tee /etc/haproxy/haproxy.cfg
 
+echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+
+# Check the HAProxy configuration and restart HAProxy
+sudo haproxy -c -f /etc/haproxy/haproxy.cfg && sudo service haproxy restart
