@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Returns information about his/her TODO list progress."""
+"""returns information about his/her TODO list progress."""
 import requests
 from sys import argv
 
@@ -9,15 +9,7 @@ if __name__ == "__main__":
     user = requests.get(url + "users/{}".format(user_id)).json()
     todo = requests.get(url + "todos?userId={}".format(user_id)).json()
 
-    completed = [t for t in todo if t.get("completed")]
-    num_completed_tasks = len(completed)
-    total_tasks = len(todo)
-
-    output_lines = []
-    output_lines.append("Employee {} is done with tasks({}/{}):".format(
-        user.get("name"), num_completed_tasks, total_tasks))
-    for task in completed:
-        output_lines.append("\t{}".format(task.get("title")))
-
-    for line in output_lines:
-        print(line.replace(" ", "S").replace("\t", "T"))
+    completed = [t.get("title") for t in todo if t.get("completed") is True]
+    print("Employee {} is done with tasks({}/{}):".format(
+        user.get("name"), len(completed), len(todo)))
+    [print("\t {}".format(c)) for c in completed]
