@@ -13,9 +13,12 @@ if __name__ == "__main__":
     num_completed_tasks = len(completed)
     total_tasks = len(todo)
 
-    # Create a file to store the output
-    with open("student_output", "w") as output_file:
-        output_file.write("Employee {} is done with tasks({}/{}):\n".format(
-            user.get("name"), num_completed_tasks, total_tasks))
-        for task in completed:
-            output_file.write("\t{}\n".format(task.get("title")))
+    # Print output with spaces and tabs replaced by "S" and "T"
+    output_lines = []
+    output_lines.append("Employee {} is done with tasks({}/{}):".format(
+        user.get("name"), num_completed_tasks, total_tasks))
+    for task in completed:
+        output_lines.append("\t{}".format(task.get("title")))
+    
+    for line in output_lines:
+        print(line.replace(" ", "S").replace("\t", "T"))
