@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""returns information about his/her TODO list progress."""
+"""Returns information about his/her TODO list progress."""
 import requests
 from sys import argv
 
@@ -13,7 +13,9 @@ if __name__ == "__main__":
     num_completed_tasks = len(completed)
     total_tasks = len(todo)
 
-    print("Employee {} is done with tasks({}/{}):".format(
-        user.get("name"), num_completed_tasks, total_tasks))
-    for task in completed:
-        print("\t{}".format(task.get("title")))
+    # Create a file to store the output
+    with open("student_output", "w") as output_file:
+        output_file.write("Employee {} is done with tasks({}/{}):\n".format(
+            user.get("name"), num_completed_tasks, total_tasks))
+        for task in completed:
+            output_file.write("\t{}\n".format(task.get("title")))
